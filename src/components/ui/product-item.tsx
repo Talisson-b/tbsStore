@@ -1,7 +1,7 @@
 import { ProductWithTotal } from "@/helpers/product"
 import Image from "next/image"
 import { Badge } from "./badge"
-import { ArrowDown, ArrowDownIcon } from "lucide-react"
+import { ArrowDownIcon } from "lucide-react"
 
 interface ProductItemProps {
   product: ProductWithTotal
@@ -9,8 +9,8 @@ interface ProductItemProps {
 
 const ProductItem = ({product}: ProductItemProps) => {
   return (
-    <div className="flex flex-col gap-4 max-w-[170px]">
-      <div className=" relative bg-accent rounded-lg h-[170px] w-[170px] flex items-center justify-center">
+    <div className="flex flex-col gap-4 ">
+      <div className=" relative bg-accent rounded-lg h-[170px] w-full flex items-center justify-center">
         <Image src={product.imageUrls[0]} width={0} height={0} sizes="100vw" className="h-äuto w-auto max-w-[80%] max-h-[70%]" style={{
           objectFit:"contain"
         }} alt={product.name}/>
