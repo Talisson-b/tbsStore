@@ -82,7 +82,7 @@ const Header = () => {
       </Sheet>
    
       <Link href='/'>
-        <h1 className="font-semibold text-lg"><span className="text-primary">FSW</span> Store</h1>
+        <h1 className="font-semibold text-lg"><span className="text-primary">TBS</span> Store</h1>
       </Link>
       <Button size="icon" variant="outline">
         <ShoppingCartIcon />
