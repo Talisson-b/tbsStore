@@ -24,12 +24,12 @@ export default function RootLayout({
       <div className='flex flex-col h-full'>
       <AuthProvider>
         <CartProvider>
+          <Header /> 
           <div className="flex-1">
             {children}
           </div>
           <Footer />
         </CartProvider>
-        <Header /> 
       </AuthProvider>
       </div>
         </body>
