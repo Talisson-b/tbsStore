@@ -1,5 +1,5 @@
 "use client"
-
+import { useContext } from 'react'
 import {  HomeIcon, ListOrderedIcon, LogInIcon, LogOutIcon, MenuIcon, PercentIcon, ShoppingCartIcon } from "lucide-react"
 import { Button } from "./button"
 import { Card } from "./card"
@@ -9,6 +9,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar"
 import { Separator } from "@radix-ui/react-separator"
 import Link from "next/link"
 import Cart from "./cart"
+import { CartContext } from '@/provider/cart'
 
 const Header = () => {
 
@@ -21,7 +22,7 @@ const Header = () => {
   } 
 
   const { status, data } = useSession()
-
+  const {quantityProductsCart} = useContext(CartContext)
   return (
     <Card className="flex justify-between p-[1.875rem] items-center">
       <Sheet>
@@ -87,9 +88,13 @@ const Header = () => {
       </Link>
       <Sheet>
         <SheetTrigger asChild>
-            <Button size="icon" variant="outline">
+            <Button size="icon" variant="outline" className="relative">
               <ShoppingCartIcon />
+             {quantityProductsCart > 0 && (
+                 <span className="flex items-center justify-center absolute top-[-4px] left-6 bg-primary rounded-full h-4 w-4 font-semibold">{quantityProductsCart}</span>
+             )}
             </Button>
+              
         </SheetTrigger>
         <SheetContent>
           <Cart />

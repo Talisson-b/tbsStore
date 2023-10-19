@@ -12,6 +12,7 @@ interface ICartContext {
   cartTotalPrice: number
   cartBasePrice: number
   cartTotalDiscount: number
+  quantityProductsCart: number
   addProductToCart: (product: CartProduct) => void
   decreaseProductQuantity: (productId: string) => void
   increaseProductQuantity: (productId: string) => void
@@ -24,6 +25,7 @@ export const CartContext = createContext<ICartContext>({
   cartBasePrice: 0,
   cartTotalDiscount: 0,
   cartTotalPrice: 0,
+  quantityProductsCart: 0,
   addProductToCart: () => {},
   decreaseProductQuantity: () => {},
   increaseProductQuantity: () => {},
@@ -101,7 +103,8 @@ const CartProvider = ({children}: any) => {
       addProductToCart,
       decreaseProductQuantity,
       increaseProductQuantity,
-      removeProduct
+      removeProduct,
+      quantityProductsCart: products.length
     }}>
       {children}
     </CartContext.Provider>
