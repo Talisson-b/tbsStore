@@ -28,16 +28,17 @@ const Cart = () => {
 
   return (
     <div className="flex flex-col gap-5 h-full">
-       <Badge className="gap-1 w-fit text-base uppercase border-primary border-2 px-3 py-[0.375rem]" variant="outline">
+       <div className=" rounded-b-[50px] flex flex-col gap-3 h-full overflow-hidden bg-primary/95" >
+       <Badge className="gap-1 w-fit text-base uppercase border-primary  bg-accent border-2 px-3 py-[0.375rem] m-3">
         <ShoppingCartIcon size={16}/>
         Carrinho
       </Badge>
-     <div className="flex flex-col gap-5 h-full overflow-hidden">
+     <div className="flex flex-col gap-5 h-full overflow-hidden p-3">
         <ScrollArea className="h-full">
          <div className="flex flex-col gap-8">
          {products.length > 0 ? (
           products.map((product) => (
-            <CartItem key={product.id} product={computeProductTotalPrice(product as any) as any}/>
+              <CartItem key={product.id} product={computeProductTotalPrice(product as any) as any}/>
           ))
           ): (
           <p className="text-center font-semibold">Carinho vazio.</p>
@@ -45,9 +46,10 @@ const Cart = () => {
          </div>
         </ScrollArea>
      </div>
+       </div>
 
     {products.length > 0 && (
-       <div className="flex flex-col gap-3">
+       <div className="flex flex-col gap-3 p-3">
        <Separator />
 
        <div className="flex items-center justify-between text-xs">
