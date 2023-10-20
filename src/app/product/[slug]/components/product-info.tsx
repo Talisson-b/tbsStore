@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { ProductWithTotal } from "@/helpers/product"
 import { CartContext } from "@/provider/cart"
-import { ArrowDownIcon, ArrowLeftIcon, ArrowRightIcon, TruckIcon } from "lucide-react"
+import { ArrowDownIcon, ArrowLeftIcon, ArrowRightIcon, Loader2, TruckIcon } from "lucide-react"
 import { useContext, useState } from "react"
 
 
@@ -13,9 +13,14 @@ interface ProductInfoProps {
 const ProductInfo = ({product}: ProductInfoProps) => {
   const [quantity, setQuantity] = useState(1)
   const {addProductToCart} = useContext(CartContext)
+  const [isLoading, setLoading] = useState(false)
 
   function handleAddToCartClick() {
-    addProductToCart({...product, quantity})
+    setTimeout(() => {
+      addProductToCart({...product, quantity})
+      setLoading((state) => !state)
+    }, 500)
+    setLoading((state) => !state)
   }
 
   function handleDecreaseQuantityClick() {
@@ -58,7 +63,13 @@ const ProductInfo = ({product}: ProductInfoProps) => {
             <h3 className="font-bold">Descrição</h3>
             <p className="text-sm opacity-60 text-justify">{product.description}</p>
         </div>
-        <Button onClick={handleAddToCartClick} className="mt-8 uppercase font-bold">Adicionar ao carrinho</Button>
+
+        <Button onClick={handleAddToCartClick} className="mt-8 uppercase font-bold">{isLoading ? (
+          <Loader2 className="animate-spin"/>
+        ) : (
+          <p>adicionar ao carrinho</p>
+        )}</Button>
+
         <div className="bg-accent flex items-center px-5 py-2 justify-between mt-5 rounded-lg ">
             <div className="flex items-center gap-2">
               <TruckIcon />
