@@ -28,7 +28,7 @@ const Cart = () => {
 
   return (
     <div className="flex flex-col gap-5 h-full">
-       <div className=" rounded-b-[50px] flex flex-col gap-3 h-full overflow-hidden bg-primary/95" >
+       <div className=" rounded-b-[50px] flex flex-col gap-3 h-full overflow-hidden bg-primary/40" >
        <Badge className="gap-1 w-fit text-base uppercase border-primary  bg-accent border-2 px-3 py-[0.375rem] m-3">
         <ShoppingCartIcon size={16}/>
         Carrinho

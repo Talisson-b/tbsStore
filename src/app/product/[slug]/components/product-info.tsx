@@ -61,7 +61,9 @@ const ProductInfo = ({product}: ProductInfoProps) => {
 
         <div className="flex flex-col gap-3 mt-8">
             <h3 className="font-bold">Descrição</h3>
-            <p className="text-sm opacity-60 text-justify">{product.description}</p>
+           <div className="p-5 border-2">
+           <p className="text-sm opacity-60 text-justify">{product.description}</p>
+           </div>
         </div>
 
         <Button onClick={handleAddToCartClick} className="mt-8 uppercase font-bold">{isLoading ? (
