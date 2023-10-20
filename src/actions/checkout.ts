@@ -13,8 +13,8 @@ export async function createCheckout(products: CartProduct[]) {
   const checkout = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],
     mode: "payment",
-    success_url: 'http://localhost:3000',
-    cancel_url: 'http://localhost:3000',
+    success_url: 'https://tbs-store.vercel.app/',
+    cancel_url: 'https://tbs-store.vercel.app/',
 
     line_items: products.map(product => {
       return {
