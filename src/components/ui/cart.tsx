@@ -1,14 +1,16 @@
-import { ArrowLeftIcon, ArrowRightIcon, ShoppingCartIcon } from "lucide-react"
+import {ShoppingCartIcon } from "lucide-react"
 import { Badge } from "./badge"
 import { useContext } from "react"
 import { CartContext } from "@/provider/cart"
 import CartItem from "./cart-item"
 import { computeProductTotalPrice } from "@/helpers/product"
-import { Button } from "./button"
+import { Separator } from "./separator"
+
+
 
 
 const Cart = () => {
-  const { products } = useContext(CartContext)
+  const { products, subTotal, total, totalDiscount } = useContext(CartContext)
   return (
     <div className="flex flex-col gap-5">
        <Badge className="gap-1 w-fit text-base uppercase border-primary border-2 px-3 py-[0.375rem]" variant="outline">
@@ -16,9 +18,40 @@ const Cart = () => {
         Carrinho
       </Badge>
      <div className="flex flex-col gap-5">
-      {products.map((product) => (
+      {products.length > 0 ? (
+        products.map((product) => (
           <CartItem key={product.id} product={computeProductTotalPrice(product as any) as any}/>
-        ))}
+        ))
+      ): (
+        <p className="text-center font-semibold">Carinho vazio.</p>
+      )}
+     </div>
+
+     <div className="flex flex-col gap-3">
+        <Separator />
+
+        <div className="flex items-center justify-between text-xs">
+          <p>Subtotal</p>
+          <p>R$ {subTotal.toFixed(2)}</p>
+        </div>
+        <Separator />
+        
+        <div className="flex items-center justify-between text-xs">
+          <p>Entrega</p>
+          <p>GRÁTIS</p>
+        </div>
+
+        <Separator />
+        <div className="flex items-center justify-between text-xs">
+          <p>Descontos</p>
+          <p>- R$ {totalDiscount.toFixed(2)}</p>
+        </div>
+
+        <Separator />
+        <div className="flex items-center justify-between text-sm font-bold">
+          <p>Total</p>
+          <p>R$ {total.toFixed(2)}</p>
+        </div>
      </div>
     </div>
   )

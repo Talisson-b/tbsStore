@@ -1,7 +1,7 @@
 'use client'
 
 import { ProductWithTotal } from "@/helpers/product";
-import { createContext, useState } from 'react'
+import { createContext, useMemo, useState } from 'react'
 
 export interface CartProduct extends ProductWithTotal {
   quantity: number
@@ -13,6 +13,9 @@ interface ICartContext {
   cartBasePrice: number
   cartTotalDiscount: number
   quantityProductsCart: number
+  total: number,
+  subTotal: number,
+  totalDiscount: number,
   addProductToCart: (product: CartProduct) => void
   decreaseProductQuantity: (productId: string) => void
   increaseProductQuantity: (productId: string) => void
@@ -26,6 +29,9 @@ export const CartContext = createContext<ICartContext>({
   cartTotalDiscount: 0,
   cartTotalPrice: 0,
   quantityProductsCart: 0,
+  total: 0,  
+  subTotal: 0,
+  totalDiscount:0,
   addProductToCart: () => {},
   decreaseProductQuantity: () => {},
   increaseProductQuantity: () => {},
@@ -36,6 +42,22 @@ export const CartContext = createContext<ICartContext>({
 const CartProvider = ({children}: any) => {
   const [products, setProducts] = useState<CartProduct[]>([])
 
+  // Total sem desconto
+  const subTotal = useMemo(() => {
+    return products.reduce((acc, product) => {
+      return acc + Number(product.basePrice)
+    }, 0)
+  }, [products])
+
+  // Total com desconto
+  const total = useMemo(() => {
+    return products.reduce((acc, product) => {
+      return acc + product.totalPrice
+    }, 0)
+  }, [products])
+
+  // Total de descontos
+  const totalDiscount = subTotal - total
 
   function addProductToCart(product: CartProduct) {
       // se o produto já estiver no carrinho, apenas aumeta a sua quantidade
@@ -104,7 +126,10 @@ const CartProvider = ({children}: any) => {
       decreaseProductQuantity,
       increaseProductQuantity,
       removeProduct,
-      quantityProductsCart: products.length
+      quantityProductsCart: products.length,
+      subTotal,
+      total,
+      totalDiscount
     }}>
       {children}
     </CartContext.Provider>
