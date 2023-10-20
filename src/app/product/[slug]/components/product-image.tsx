@@ -35,7 +35,6 @@ const ProductImage = ({imageUrls, name}:ProductImagesUrlsProps) => {
             <button 
               key={imageUrl} 
               onClick={() => handleImageClick(imageUrl)}
-              onMouseEnter={() => handleImageClick(imageUrl)}
 
               className={`"bg-accent rounded-lg flex justify-center items-center h-[100px]"
                 ${imageUrl === currentImage && 'border-2 border-solid border-primary bg-accent rounded-lg flex justify-center items-center h-[100px]'}
