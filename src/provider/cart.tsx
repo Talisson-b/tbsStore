@@ -45,8 +45,10 @@ const CartProvider = ({children}: any) => {
   )
 
   useEffect(() => {
-    localStorage.setItem('@tbs-store/cart-products', JSON.stringify(products))
-  }, [products])
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('@tbs-store/cart-products', JSON.stringify(products));
+    }
+  }, [products]);
 
   // Total sem desconto
   const subTotal = useMemo(() => {
