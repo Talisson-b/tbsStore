@@ -1,7 +1,7 @@
 'use client'
 
 import { ProductWithTotal } from "@/helpers/product";
-import { createContext, useMemo, useState } from 'react'
+import { createContext, useEffect, useMemo, useState } from 'react'
 
 export interface CartProduct extends ProductWithTotal {
   quantity: number
@@ -40,7 +40,13 @@ export const CartContext = createContext<ICartContext>({
 
 
 const CartProvider = ({children}: any) => {
-  const [products, setProducts] = useState<CartProduct[]>([])
+  const [products, setProducts] = useState<CartProduct[]>(
+    JSON.parse(localStorage.getItem('@tbs-store/cart-products') || '[]')
+  )
+
+  useEffect(() => {
+    localStorage.setItem('@tbs-store/cart-products', JSON.stringify(products))
+  }, [products])
 
   // Total sem desconto
   const subTotal = useMemo(() => {
