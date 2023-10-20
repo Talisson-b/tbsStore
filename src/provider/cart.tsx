@@ -40,11 +40,19 @@ export const CartContext = createContext<ICartContext>({
 
 
 const CartProvider = ({children}: any) => {
-  const [products, setProducts] = useState<CartProduct[]>(
-    JSON.parse(localStorage.getItem('@tbs-store/cart-products') || '[]')
-  )
+  const [products, setProducts] = useState<CartProduct[]>([])
+
+  
+  useEffect(() => {
+    // Verificar se o localStorage está disponível (ou seja, estamos no lado do cliente)
+    if (typeof window !== 'undefined') {
+      const storedProducts = JSON.parse(localStorage.getItem('@tbs-store/cart-products') || '[]');
+      setProducts(storedProducts);
+    }
+  }, []); // Sem dependências, para que isso só seja executado na montagem inicial
 
   useEffect(() => {
+    // Verificar se o localStorage está disponível (ou seja, estamos no lado do cliente)
     if (typeof window !== 'undefined') {
       localStorage.setItem('@tbs-store/cart-products', JSON.stringify(products));
     }
